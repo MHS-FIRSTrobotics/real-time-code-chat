@@ -1,5 +1,5 @@
 <?php
-require '../vendor/autoload.php';
+require 'vendor/autoload.php';
 require 'libs/DummyProvider.php';
 
 $provider = new DummyProvider();
