@@ -7,7 +7,7 @@ $chat = new AngularTalk_Room('chat', $provider);
 $chat->set_mode(AngularTalk_Room::MODE_CHAT);
 $chat->ajaxEndpoint = '?chatEndpoint';
 $chat->sender = $provider->authorInfo(1, $chat);
-$chat->sender->isModerator = true;
+$chat->sender->isModerator = false;
 $chat->soundOnNew = array(
     'audio/mpeg' => 'static/notification.mp3',
     'audio/ogg'  => 'static/notification.ogg'
@@ -22,17 +22,12 @@ $chat->debug = true;
 
     <link href="static/example.css" rel="stylesheet"/>
     <link href="dist/css/angular-talk.min.css" rel="stylesheet"/>
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
-
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"/>
 </head>
 
 <body>
 
 <div class="container">
-
-    <div class="page-header">
-        <h1>angular-talk</h1>
-    </div>
     <div id="chat">
         <?php
         echo $chat->render();
