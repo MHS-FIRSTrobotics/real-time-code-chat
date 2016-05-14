@@ -30,9 +30,10 @@ if ($_GET['add'] != null) {
 
 try
 {
-    $serverName = "tcp:live-edit5.database.windows.net,1433";
-    $connectionOptions = array("Database"=>"live-edit-5",
-        "Uid"=>"dmssargent", "PWD"=>"#MustangRobotics");
+    require 'db.inc.php';
+    $serverName = "tcp:$server,1433";
+    $connectionOptions = array("Database"=>"$db_name",
+        "Uid"=>"$uid", "PWD"=>"$pwd");
     $conn = sqlsrv_connect($serverName, $connectionOptions);
 
     if($conn == false)

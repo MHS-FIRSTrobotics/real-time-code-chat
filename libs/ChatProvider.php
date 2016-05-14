@@ -18,9 +18,11 @@ class ChatProvider implements AngularTalk_MessageProvider
         
         try
         {
-            $serverName = "tcp:live-edit5.database.windows.net,1433";
-            $connectionOptions = array("Database"=>"live-edit-5",
-                "Uid"=>"dmssargent", "PWD"=>"#MustangRobotics");
+            require '../db.inc.php';
+            
+            $serverName = "tcp:$server,1433";
+            $connectionOptions = array("Database"=>"$db_name",
+                "Uid"=>"$uid", "PWD"=>"$pwd");
             $this->db = sqlsrv_connect($serverName, $connectionOptions);
 
             if($this->db == false)
