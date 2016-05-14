@@ -6,16 +6,16 @@ class ChatProvider implements AngularTalk_MessageProvider
     private $name;
     private $icon = null;
     private $messId = 0;
-    private $authors = SplDoublyLinkedList::class;
+    //private $authors = SplDoublyLinkedList::class;
     private $db;
 
     public function __construct() {
         // DB connection info
         //using the values you retrieved earlier from the Azure Portal.
-        $host = "value of Data Source";
-        $user = "value of User Id";
-        $pwd = "value of Password";
-        $db = "value of Database";
+        $host = "live-edit5.database.windows.net";
+        $user = "dmssargent";
+        $pwd = "#MustangRobotics";
+        $db = "live-edit-5";
             // Connect to database.
         try {
         $conn = new PDO( "mysql:host=$host;dbname=$db", $user, $pwd);
@@ -70,6 +70,11 @@ class ChatProvider implements AngularTalk_MessageProvider
 //            $message->date = time();
 //            $messages[] = $message;
 //        }
+        $channel = $room->channel;
+        $query = $this->db->query('SELECT * FROM chat_sys WHERE channel=$channel');
+        if ($query) {
+            var_dump($query);
+        }
 
 
         return $dir == 'ID' ? reset($messages) : $messages;
@@ -85,12 +90,15 @@ class ChatProvider implements AngularTalk_MessageProvider
      */
     public function authorInfo($id, AngularTalk_Room $room)
     {
-
-        $names = array('Javi', 'John', 'Mario', 'Andrea');
+        //$names = array('Javi', 'John', 'Mario', 'Andrea');
+        $query = $this->db->query('SELECT * FROM chat_authors WHERE identifier=$id');
+        if ($query) {
+            var_dump($query);
+        }
         $author = new AngularTalk_Author();
         $author->id = $id;
-        $author->name = $names[$id - 1];
-        $author->icon = 'static/icons/face' . $id . '.png';
+        $author->name = 'John Smith';
+        //$author->icon = 'static/icons/face' . $id . '.png';
 
         return $author;
     }
