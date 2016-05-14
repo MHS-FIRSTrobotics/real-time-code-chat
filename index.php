@@ -1,8 +1,8 @@
 <?php
 require 'vendor/autoload.php';
-require 'libs/DummyProvider.php';
+require 'libs/ChatProvider.php';
 
-$provider = new DummyProvider();
+$provider = new ChatProvider();
 $chat = new AngularTalk_Room('chat', $provider);
 $chat->set_mode(AngularTalk_Room::MODE_CHAT);
 $chat->ajaxEndpoint = '?chatEndpoint';
