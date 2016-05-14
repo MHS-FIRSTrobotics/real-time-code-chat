@@ -12,18 +12,23 @@ class ChatProvider implements AngularTalk_MessageProvider
     public function __construct() {
         // DB connection info
         //using the values you retrieved earlier from the Azure Portal.
-        $host = "live-edit5.database.windows.net";
-        $user = "dmssargent";
-        $pwd = "#MustangRobotics";
-        $db = "live-edit-5";
-            // Connect to database.
-        try {
-        $conn = new PDO( "mysql:host=$host;dbname=$db", $user, $pwd);
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            require '../src/AngularTalk/DB/PdoAdapter.php';
-            $this->db = new AngularTalk_DB_PdoAdapter($conn);
-        } catch (Exception $e) {
-            die();
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+        
+        try
+        {
+            $serverName = "tcp:live-edit5.database.windows.net,1433";
+            $connectionOptions = array("Database"=>"live-edit-5",
+                "Uid"=>"dmssargent", "PWD"=>"#MustangRobotics");
+            $this->db = sqlsrv_connect($serverName, $connectionOptions);
+
+            if($this->db == false)
+                die(sqlsrv_errors());
+        }
+        catch(Exception $e)
+        {
+            echo("Error!");
         }
     }
     /**
@@ -71,7 +76,7 @@ class ChatProvider implements AngularTalk_MessageProvider
 //            $messages[] = $message;
 //        }
         $channel = $room->channel;
-        $query = $this->db->query('SELECT * FROM chat_sys WHERE channel=$channel');
+        $query = sqlsrv_query($this->db,'SELECT * FROM chat_sys WHERE channel=$channel');
         if ($query) {
             var_dump($query);
         }
@@ -91,7 +96,7 @@ class ChatProvider implements AngularTalk_MessageProvider
     public function authorInfo($id, AngularTalk_Room $room)
     {
         //$names = array('Javi', 'John', 'Mario', 'Andrea');
-        $query = $this->db->query('SELECT * FROM chat_authors WHERE identifier=$id');
+        $query = sqlsrv_query($this->db, 'SELECT * FROM chat_authors WHERE identifier=$id');
         if ($query) {
             var_dump($query);
         }

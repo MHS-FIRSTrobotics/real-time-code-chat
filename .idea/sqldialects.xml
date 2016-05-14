@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
+    <file url="remoteDeploymentFS://&lt;6769865c-7395-445d-923c-6bd06c4ccf26&gt;/site/wwwroot/libs/ChatProvider.php" dialect="TSQL" />
+    <file url="file://$PROJECT_DIR$/code.php" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/src/AngularTalk/DB/PdoAdapter.php" dialect="HSQLDB" />
   </component>
 </project>
